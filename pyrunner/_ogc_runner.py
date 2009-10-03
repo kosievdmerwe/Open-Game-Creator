@@ -19,11 +19,10 @@ ogc.game.set_current_room(ogc._ogc_start_room)
 
 #main game loop
 clock = pygame.time.Clock()
-i = 0
 while True:
     ogc.graphics.clear_screen(ogc.game.current_room.background_color)
-    print "frame", i
-    i+=1
+
+    ogc.game._ogc_process_events()
     #run step event
     for object in ogc.game.get_objects():
         object._ogc_step()
@@ -31,6 +30,6 @@ while True:
     #run draw event
     for object in ogc.game.get_objects():
         object._ogc_draw()
-    clock.tick(ogc.game.current_room.fps)
     ogc.graphics.flip_screen()
+    clock.tick(ogc.game.current_room.fps)
     

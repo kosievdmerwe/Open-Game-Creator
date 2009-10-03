@@ -6,8 +6,9 @@ class Test(ogc._ogc_Room):
     def __init__(self):
         ogc._ogc_Room.__init__(self)
         self.create_object(ogc.Box, 0, 0)
+        self.create_object(ogc.Cursor, 0, 0)
 
 #list of user defined rooms
 _ogc_rooms = ["Test"]
 #room to start the game from
-_ogc_start_room = "Test"
+_ogc_start_room = _ogc_rooms[0]

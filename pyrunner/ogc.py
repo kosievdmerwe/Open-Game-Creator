@@ -20,6 +20,9 @@ class _ogc_Graphics:
     def clear_screen(self, color):
         rect = (0, 0, self._ogc_window_size[0], self._ogc_window_size[1])
         pygame.draw.rect(self.screen, color, rect)
+    
+    def draw_rect(self, color, rect, border=0):
+        pygame.draw.rect(self.screen, color, rect, border)
 
     def flip_screen(self):
         pygame.display.flip()
@@ -29,6 +32,15 @@ class _ogc_Game:
     def __init__(self):
         self.current_room = None
         self.objects = []
+        self._ogc_mouse_pos = (0,0)
+
+    def _ogc_process_events(self):
+        self._ogc_mouse_pos = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            pass#TODO: process other events
+
+    def get_mouse_pos(self):
+        return self._ogc_mouse_pos
         
     def set_current_room(self, room):
         self.current_room = room()
@@ -70,7 +82,7 @@ class _ogc_Room:
         self.fps = 30
         self.objects = []
         self._ogc_window_size = (640, 480)
-        self.background_color = (255, 0, 255)
+        self.background_color = (0, 0, 0)
 
     def create_object(self, object, x, y):
         game.create_object(object, x, y, self)
