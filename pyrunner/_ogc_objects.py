@@ -3,8 +3,11 @@
 import ogc
 
 class Box(ogc._ogc_Object):
-    def _ogc_create(self):
+    def __init__(self):
         ogc._ogc_Object.__init__(self)
+        print ogc.pygame
+
+    def _ogc_create(self):
         print "I live"
 
     def _ogc_step(self):
