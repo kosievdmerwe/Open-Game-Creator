@@ -13,5 +13,6 @@ def setup():
     #add rooms to ogc
     for room in _ogc_rooms._ogc_rooms:
         setattr(ogc, room, getattr(_ogc_rooms, room))
+        ogc.game.register_room(getattr(ogc, room))
     setattr(ogc, "_ogc_start_room", getattr(_ogc_rooms, _ogc_rooms._ogc_start_room))
 
