@@ -33,7 +33,7 @@ class _ogc_Game:
         self.current_room = None
         self.objects = []
         self._ogc_mouse_pos = (0,0)
-        self._ogc_rooms = {}
+        self._ogc_rooms = []
 
     def _ogc_process_events(self):
         self._ogc_mouse_pos = pygame.mouse.get_pos()
@@ -44,11 +44,13 @@ class _ogc_Game:
         return self._ogc_mouse_pos
 
     def register_room(self, room):
-        self._ogc_rooms[room] = room() 
+        if room not in self._ogc_rooms:
+            self._ogc_rooms.append(room)
         
     def set_current_room(self, room):
-        self.current_room = self._ogc_rooms[room]
-        graphics._ogc_resize_window(self.current_room._ogc_window_size)
+        if room in self._ogc_rooms:
+            self.current_room = room
+            graphics._ogc_resize_window(self.current_room._ogc_window_size)
 
     def create_object(self, object, x, y, owner=None):
         if owner == None:
