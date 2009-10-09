@@ -1,5 +1,3 @@
-#this file contains user defined objects.
-#objects are the things that inhabit levels.
 import ogc
 
 class Box(ogc._ogc_Object):
@@ -29,6 +27,12 @@ class Cursor(ogc._ogc_Object):
     def _ogc_draw(self):
         ogc.graphics.draw_rect((255,255,255), (self.x, self.y, 3,3))
 
-#list of user defined objects
-_ogc_objects = ["Box", "Cursor"]
+class Test(ogc._ogc_Room):
+    def __init__(self):
+        ogc._ogc_Room.__init__(self)
+        self.create_object(Box, 0, 0)
+        self.create_object(Cursor, 0, 0)
+Test = Test()
+ogc.game.register_room(Test)
+ogc.game.set_current_room(Test)
 
