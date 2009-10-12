@@ -1,4 +1,6 @@
 #this file contains all the base code for the running of the game
+
+import sys
 import pygame
 
 #this object manages graphics
@@ -38,10 +40,18 @@ class _ogc_Game:
     def _ogc_process_events(self):
         self._ogc_mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
-            pass#TODO: process other events
+            if event.type == pygame.QUIT:
+                self.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.exit()
+            #TODO: process other events
 
     def get_mouse_pos(self):
         return self._ogc_mouse_pos
+
+    def set_mouse_visible(self, visible):
+        pygame.mouse.set_visible(visible)
 
     def register_room(self, room):
         if room not in self._ogc_rooms:
@@ -51,6 +61,7 @@ class _ogc_Game:
         if room in self._ogc_rooms:
             self.current_room = room
             graphics._ogc_resize_window(self.current_room._ogc_window_size)
+            self.current_room.make_active()
 
     def create_object(self, object, x, y, owner=None):
         if owner == None:
@@ -62,6 +73,9 @@ class _ogc_Game:
 
     def get_objects(self):
         return self.current_room.objects + self.objects
+
+    def exit(self):
+        sys.exit(0)
 
 #instances of above objects used by user code
 graphics = _ogc_Graphics()
@@ -88,8 +102,14 @@ class _ogc_Room:
         self.fps = 30
         self.objects = []
         self._ogc_window_size = (640, 480)
-        self.background_color = (0, 0, 0)
+        self.background_color = (255, 0, 0)
 
     def create_object(self, object, x, y):
         game.create_object(object, x, y, self)
+
+    def reset(self):
+        pass
+    
+    def make_active(self):
+        pass
 

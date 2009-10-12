@@ -30,8 +30,14 @@ class Cursor(ogc._ogc_Object):
 class Test(ogc._ogc_Room):
     def __init__(self):
         ogc._ogc_Room.__init__(self)
+        self.reset()
+    
+    def reset(self):
         self.create_object(Box, 0, 0)
         self.create_object(Cursor, 0, 0)
+
+    def make_active(self):
+        ogc.game.set_mouse_visible(False)
 Test = Test()
 ogc.game.register_room(Test)
 ogc.game.set_current_room(Test)
